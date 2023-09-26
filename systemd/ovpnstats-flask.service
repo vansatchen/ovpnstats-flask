@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve ovpnstats-flask
+After=network.target
+
+[Service]
+User=user
+Group=www-data
+WorkingDirectory=/opt/ovpnstats-flask
+Environment="PATH=/opt/ovpnstats-flask/venv/bin"
+ExecStart=/opt/ovpnstats-flask/venv/bin/uwsgi --ini ovpnstats-flask.ini
+
+[Install]
+WantedBy=multi-user.target

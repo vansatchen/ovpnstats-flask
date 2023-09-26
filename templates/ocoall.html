@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Host2{% endblock %}
+
+{% block host2url %}
+  <a class="nav-link active dropdown-toggle" href="/host2" data-bs-toggle="dropdown" aria-expanded="false">
+    Host2
+  </a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="/host2">Подключенные</a></li>
+    <li><a class="dropdown-item" href="/host2/all">Все</a></li>
+  </ul>
+  <script src="static/css/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
+{% block table1 %}
+  <table id="data" class="table table-striped table-bordered mt-3">
+    {% include 'table.html' %}
+      <tbody>
+      {% for user in range(ldapADUsers|length // 2) %}
+        <tr>
+          <td {% if ldapADUsers[user][2] != 'нет данных' %}
+                  ><a class="link-opacity-10-hover" href="/host2/user/{{ ldapADUsers[user][1] }}">
+                  {{ ldapADUsers[user][1] }}
+                  </a>
+              {% else %}
+                  >{{ ldapADUsers[user][1] }}
+              {% endif %}
+          </td>
+          <td {% if ldapADUsers[user][2] == 'connected' %}
+                  style="color: green"
+              {% elif ldapADUsers[user][2] == 'нет данных' %}
+                  style="color: red"
+              {% endif %}>
+              {{ ldapADUsers[user][2] }}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+<p>Total: <b>{{ ldapADUsers|length }}</b></p>
+{% endblock %}
+{% block table2 %}
+  <table id="data" class="table table-striped table-bordered mt-3">
+    {% include 'table.html' %}
+      <tbody>
+      {% for user in range(ldapADUsers|length // 2, ldapADUsers|length) %}
+        <tr>
+          <td {% if ldapADUsers[user][2] != 'нет данных' %}
+                  ><a class="link-opacity-10-hover" href="/host2/user/{{ ldapADUsers[user][1] }}">
+                  {{ ldapADUsers[user][1] }}
+                  </a>
+               {% else %}
+                  >{{ ldapADUsers[user][1] }}
+               {% endif %}
+          </td>
+          <td {% if ldapADUsers[user][2] == 'connected' %}
+                  style="color: green"
+              {% elif ldapADUsers[user][2] == 'нет данных' %}
+                  style="color: red"
+              {% endif %}>
+              {{ ldapADUsers[user][2] }}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

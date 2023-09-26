@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Host1{% endblock %}
+
+{% block host1url %}
+  <a class="nav-link active dropdown-toggle" href="/host1" data-bs-toggle="dropdown" aria-expanded="false">
+    Host1
+  </a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="/host1">Подключенные</a></li>
+    <li><a class="dropdown-item" href="/host1/all">Все</a></li>
+  </ul>
+{% endblock %}
+
+{% block table1 %}
+  <table id="data" class="table table-striped table-bordered mt-3">
+    {% include 'table.html' %}
+      <tbody>
+      {% for user in range(users|length // 2) %}
+        <tr>
+          <td><a class="link-opacity-10-hover" href="/host1/user/{{ users[user].login }}">{{ users[user].login }}</a></td>
+          <td {% if users[user].datetime == 'connected' %}
+                  style="color: green"
+              {% endif %}>
+              {{ users[user].datetime }}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+  <p>Total: <b>{{ users|length }}</b></p>
+{% endblock %}
+{% block table2 %}
+  <table id="data" class="table table-striped table-bordered mt-3">
+    {% include 'table.html' %}
+      <tbody>
+      {% for user in range(users|length // 2, users|length) %}
+        <tr>
+          <td><a class="link-opacity-10-hover" href="/host1/user/{{ users[user].login }}">{{ users[user].login }}</a></td>
+          <td {% if users[user].datetime == 'connected' %}
+                  style="color: green"
+              {% endif %}>
+              {{ users[user].datetime }}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% block body %}{% endblock %}
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item dropdown">
+                        {% block host1url %}<a class="nav-link" href="/host1">Host1</a>{% endblock %}
+                    </li>
+                    <li class="nav-item">
+                        {% block host2url %}<a class="nav-link" href="/host2">Host2</a>{% endblock %}
+                    </li>
+                    <li class="nav-item">
+                        {% block host3url %}<a class="nav-link" href="/host3">Host3</a>{% endblock %}
+                    </li>
+                    <li class="nav-item">
+                        {% block host4url %}<a class="nav-link disabled" href="/host4">Host4</a>{% endblock %}
+                    </li>
+                </ul>
+                {% block search %}
+                <form class="d-flex" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="q" value="{{ request.arhost1.get('q', '') }}">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+                {% endblock %}
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        {% block tables %}
+        <div class="container mt-5">
+            <div class="container px-4">
+                <div class="row gx-5">
+                    <div class="col">
+                        <div class="p-3 border bg-light">
+                            {% block table1 %}{% endblock %}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">
+                            {% block table2 %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+    <div class="container">
+        <footer class="py-3 my-4">
+            <p class="text-center text-muted">© 2023 Отдел разработки, Host</p>
+        </footer>
+    </div>
+<script src="static/css/bootstrap.bundle.min.js"></script>
+</body>
+</html>

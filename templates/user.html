@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user[0] }}{% endblock %}
+
+{% block host1url %}{% if server == "host1" %}<a class="nav-link active" href="/host1">Host1</a>{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block host2url %}{% if server == "host2" %}<a class="nav-link active" href="/host2">Host2</a>{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block host3url %}{% if server == "host3" %}<a class="nav-link active" href="/host3">Host3</a>{% else %}{{ super() }}{% endif %}{% endblock %}
+
+{% block tables %}
+<table id="data" class="table table-striped table-bordered mt-3">
+  <div class="container mt-5"><div class="container px-4">
+    <div class="row gx-5"><div class="col">
+      <thead><tr><th>
+        <h4>{{ user[0] }}</h4>
+      </th></tr></thead>
+      <tbody><tr><td colspan="4">
+        <p>Логин: <b>{{ user[1] }}</b></p>
+        <p>Последнее присутствие: <b{% if user[2] == 'connected' %}
+                                      style="color: green"
+                                    {% elif user[2] == 'нет данных' %}
+                                      style="color: red"
+                                    {% endif %}>
+                                    {{ user[2] }}</b>
+        </p>
+      </td></tr></tbody>
+    </div></div>
+  </div></div>
+</table>
+{% if user[3]|length > 0 %}
+<table id="data" class="table table-striped table-bordered mt-3">
+  <div class="container mt-5"><div class="container px-4">
+    <div class="row gx-5"><div class="col">
+      <thead><tr><th colspan="3" class="table-active">
+        <h5>Статистика за сегодня</h5>
+      </th></tr></thead>
+      <thead><tr>
+        <th>Начало сессии</th>
+        <th>Конец сессии</th>
+        <th>Время сессии</th>
+      </tr></thead>
+      <tbody>
+        {% for data in user[3] %}
+        <tr>
+          <td>{{ data[0] }}</td>
+          <td>{{ data[1] }}</td>
+          <td>{{ data[2] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </div></div>
+  </div></div>
+</table>
+{% endif %}
+<table id="data" class="table table-striped table-bordered mt-3">
+  <div class="container mt-5"><div class="container px-4">
+    <div class="row gx-5"><div class="col">
+      <thead><tr><th colspan="3" class="table-active">
+        <h5>Детальная статистика с {{ dateFrom.strftime('%d.%m.%Y') }} по {{ dateTo.strftime('%d.%m.%Y') }}</h5>
+        {% if user[4]|length > 0 %}
+        <form>
+          <input type="date" name="dateFrom" value="{{ dateFrom.strftime('%Y-%m-%d') }}" min="2023-09-06">
+          <input type="date" name="dateTo" value="{{ dateTo.strftime('%Y-%m-%d') }}" min="2023-09-06">
+          <input type="submit" style="width: 200px" value="Показать">
+          <button type="submit" style="width: 200px; margin-left: 50px" name="request" value="csv">Скачать в csv</button>
+        </form>
+        {% endif %}
+      </th></tr></thead>
+      <thead><tr>
+        <th>Начало сессии</th>
+        <th>Конец сессии</th>
+        <th>Время сессии</th>
+      </tr></thead>
+      <tbody>
+        {% for data in user[4] %}
+        <tr>
+          <td>{{ data[0] }}</td>
+          <td>{{ data[1] }}</td>
+          <td>{{ data[2] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </div></div>
+  </div></div>
+</table>
+
+{% endblock %}
