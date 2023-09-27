@@ -1,0 +1,12 @@
+server {
+    listen 8443 ssl;
+    server_name ovpnstats.example.com;
+
+    ssl_certificate /etc/ssl/certs/bundle.crt;
+    ssl_certificate_key /etc/ssl/certs/server.key;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/opt/ovpnstats-flask/wsgi.sock;
+    }
+}
