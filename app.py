@@ -91,7 +91,7 @@ def dep(dep):
     q = request.args.get('q')
     if q:
         ldapUser = ldapFunc.getUser(ldapGroup, q)
-        if ldapUser: return redirect("/" + dep + "/" + ldapUser[0][0].split(',')[0].split('=')[1])
+        if ldapUser: return redirect("/" + dep + "/user/" + ldapUser[0][0].split(',')[0].split('=')[1])
 
     conUsers = []
     for ldapUser in ldapResult:
@@ -134,7 +134,7 @@ def depAll(dep):
     q = request.args.get('q')
     if q:
         ldapUser = ldapFunc.getUser(ldapGroup, q)
-        if ldapUser: return redirect("/" + dep + "/" + ldapUser[0][0].split(',')[0].split('=')[1])
+        if ldapUser: return redirect("/" + dep + "/user/" + ldapUser[0][0].split(',')[0].split('=')[1])
 
     ldapADUsers = []
     for ldapADUser in ldapResult:
@@ -225,7 +225,7 @@ def depLogin(dep, user):
     q = request.args.get('q')
     if q:
         ldapUser = ldapFunc.getUser(ldapGroup, q)
-        if ldapUser: return redirect("/" + dep + "/" + ldapUser[0][0].split(',')[0].split('=')[1])
+        if ldapUser: return redirect("/" + dep + "/user/" + ldapUser[0][0].split(',')[0].split('=')[1])
 
     lastDT = datetime(1970, 1, 1)
     correctUserDTs, listDT, todayDTs = [], [], []
